@@ -15,25 +15,16 @@ emxThresholds(data, ordinalCols)
 
 
 \arguments{
-   \item{x}{character vector. The names of the variables for which covariances are created.}
-   \item{values}{numeric vector. See Details.}
-   \item{free}{logical vector. See Details.}
-   \item{path}{logical. Whether to return the MxPath object instead of the MxMatrix.}
-   \item{type}{character.  The kind of covariance structure to create.  See Details.}
-   \item{name}{The name of the matrix created.}
+   \item{data}{The data frame or matrix for which thresholds should be created.}
+   \item{ordinalCols}{optional character vector.  The names of the ordinal variables in the data.}
 }
 
 \details{
-Possible values for the \code{type} argument are 'independent', 'full', and 'corr'.  When \code{type='independent'}, the remaining arguments are passes to \link{\code{emxResiduals}}.  The \code{values} and \code{free} arguments are only used when the \code{type} argument is 'independent'.  For all other cases, they are ignored.
-
-When \code{type='full'}, a full covariance matrix is created.  That is, a symmetric matrix is created with all unique elements freely estimated.  The starting values for the variances are all 1; for the covariances, all 0.5.
-
-When \code{type='corr'}, a full correlation matrix is created.  That is, a symmetric matrix is created with all unique elements not on the diagonal freely estimated.  The starting values for the correlations are all 0.5.  The variances are fixed at 1.
-
+% TODO add info about the deviations used to keep thresholds in order.
 }
 
 \value{
-    Depending on the value of the \code{path} argument, either an MxMatrix or and MxPath object that can be inspected, modified, and/or included in MxModel objects.
+    An MxMatrix giving the thresholds.
 }
 
 \seealso{
@@ -46,12 +37,10 @@ When \code{type='corr'}, a full correlation matrix is created.  That is, a symme
 
 \examples{
    
-# Create a covariance matrix
+# Example
 require(emx)
-manVars <- paste0('x', 1:6)
-latVars <- paste0('F', 1:2)
-emxCovariances(manVars, type='full')
-emxCovariances(latVars, type='corr', path=TRUE)
-
+data(jointdata)
+jointdata[, c(2, 4, 5)] <- mxFactor(jointdata[,c(2, 4, 5)], levels=sapply(jointdata[,c(2, 4, 5)], function(x){sort(unique(x))}))
+emxThresholds(jointdata, c(FALSE, TRUE, FALSE, TRUE, TRUE))
 
 }
