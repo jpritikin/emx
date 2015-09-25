@@ -148,8 +148,8 @@ emxGrowthModel <- function(model, data, name, run=FALSE, identification, use, or
 #------------------------------------------------------------------------------
 # Regression with FIML
 
-emxRegressionModel <- function(formula, data, run, ...){
-	theFormu <- formula
+emxRegressionModel <- function(model, data, run, ...){
+	theFormu <- model #a formula as passed to lm
 	theFrame <- lm(theFormu, data=data, na.action=na.pass, method='model.frame', ...)
 	theTerms <- attr(theFrame, 'terms')
 	theRespo <- model.response(theFrame, 'numeric')
