@@ -24,7 +24,7 @@ emxCovariances(x, values, free, path, type, name='Variances')
 }
 
 \details{
-Possible values for the \code{type} argument are 'independent', 'full', and 'corr'.  When \code{type='independent'}, the remaining arguments are passes to \link{\code{emxResiduals}}.  The \code{values} and \code{free} arguments are only used when the \code{type} argument is 'independent'.  For all other cases, they are ignored.
+Possible values for the \code{type} argument are 'independent', 'full', and 'corr'.  When \code{type='independent'}, the remaining arguments are passes to \code{\link{emxResiduals}}.  The \code{values} and \code{free} arguments are only used when the \code{type} argument is 'independent'.  For all other cases, they are ignored.
 
 When \code{type='full'}, a full covariance matrix is created.  That is, a symmetric matrix is created with all unique elements freely estimated.  The starting values for the variances are all 1; for the covariances, all 0.5.
 
@@ -37,12 +37,12 @@ When \code{type='corr'}, a full correlation matrix is created.  That is, a symme
 }
 
 \seealso{
-\link{emxFactorModel,emxGrowthModel}
+\link{emxFactorModel}, \link{emxGrowthModel}
 }
 
-\references{
-
-}
+%\references{
+%
+%}
 
 \examples{
    

@@ -7,11 +7,12 @@
 emxFactorModel <- function(model, data, name, run=FALSE, identification, use, ordinal){
 	if(missing(name)){name <- 'Model'}
 	if(missing(use)){use <- sort(unique(unlist(model)))}
+	numVar <- length(use)
 	latents <- names(model)
 	manifests <- use
 	if( nrow(data) == ncol(data) && all(data == t(data)) ){
 		data <- data[use, use]
-		bdata <- mxData(data, 'cov')
+		bdata <- OpenMx::mxData(data, 'cov')
 	} else {
 		data <- data[,use]
 		if(missing(ordinal)){
@@ -29,9 +30,9 @@ emxFactorModel <- function(model, data, name, run=FALSE, identification, use, or
 			binaryCols <- sapply(data, is.binary)
 		}
 		if(!any(is.na(data)) && !any(ordinalCols)){
-			bdata <- mxData(cov(data), 'cov', means=colMeans(data), numObs=nrow(data))
+			bdata <- OpenMx::mxData(cov(data), 'cov', means=colMeans(data), numObs=nrow(data))
 		} else {
-			bdata <- mxData(data, 'raw')
+			bdata <- OpenMx::mxData(data, 'raw')
 		}
 	}
 	mmat <- emxMeans(x=use, free=!ordinalCols)
@@ -39,7 +40,7 @@ emxFactorModel <- function(model, data, name, run=FALSE, identification, use, or
 	rmat <- emxResiduals(x=use, free=!ordinalCols, values=1)
 	ka <- emxMeans(x=latents, free=FALSE, name='LatentMeans')
 	ph <- emxCovariances(x=latents, type='corr', name='LatentVariances')
-	bmodel <- mxModel(name=name,
+	bmodel <- OpenMx::mxModel(name=name,
 		lmat, rmat, mmat, ka, ph,
 		bdata,
 		mxExpectationLISREL(
@@ -52,7 +53,7 @@ emxFactorModel <- function(model, data, name, run=FALSE, identification, use, or
 	)
 	if(any(ordinalCols)){
 		threshList <- emxThresholds(data, ordinalCols)
-		bmodel <- mxModel(bmodel, threshList,
+		bmodel <- OpenMx::mxModel(bmodel, threshList,
 			mxExpectationLISREL(
 			LX=slot(lmat, 'name'),
 			TD=slot(rmat, 'name'),
@@ -113,21 +114,21 @@ emxGrowthModel <- function(model, data, name, run=FALSE, identification, use, or
 	latents <- paste('F', 0:order, sep='')
 	manifests <- use
 	if( nrow(data) == ncol(data) && all(data == t(data)) ){
-		bdata <- mxData(data, 'cov')
+		bdata <- OpenMx::mxData(data, 'cov')
 	} else {
 		if(!any(is.na(data))){
-			bdata <- mxData(cov(data), 'cov', means=colMeans(data), numObs=nrow(data))
+			bdata <- OpenMx::mxData(cov(data), 'cov', means=colMeans(data), numObs=nrow(data))
 		} else {
-		bdata <- mxData(data, 'raw')
+		bdata <- OpenMx::mxData(data, 'raw')
 		}
 	}
 	mmat <- emxMeans(x=use, values=0, free=FALSE, type='equal')
 	lval <- GrowthBasisMatrix(length(use), order=order)
-	lmat <- mxMatrix('Full', length(use), length(latents), FALSE, values=lval, name='Loadings', dimnames=list(manifests, latents))
+	lmat <- OpenMx::mxMatrix('Full', length(use), length(latents), FALSE, values=lval, name='Loadings', dimnames=list(manifests, latents))
 	rmat <- emxResiduals(x=use, type='identical')
 	ka <- emxMeans(x=latents, free=TRUE, name='LatentMeans')
 	ph <- emxCovariances(x=latents, type='full', name='LatentVariances')
-	bmodel <- mxModel(name=name,
+	bmodel <- OpenMx::mxModel(name=name,
 		lmat, rmat, mmat, ka, ph,
 		bdata,
 		mxExpectationLISREL(
@@ -166,17 +167,17 @@ emxRegressionModel <- function(model, data, run, ...){
 	namAll <- c(namRespo, namTerms)
 	cdat <- cbind(theRespo, theMatri)
 	colnames(cdat) <- namAll
-	regPaths <- mxPath(from=namTerms, to=namRespo, free=TRUE, values=.8, labels=paste(namRespo, '_on_', namTerms, sep=''))
-	predVars <- mxPath(from=namTerms, arrows=2, free=TRUE, values=1, labels=paste('var', namTerms, sep='_'))
-	residVar <- mxPath(from=namRespo, arrows=2, free=TRUE, values=1, labels=paste('residVar', namRespo, sep='_'))
-	theInter <- mxPath(from='one', to=namRespo, labels='Intercept', values=0, free=!is.na(whichInt))
-	theMeans <- mxPath(from='one', to=namTerms, labels=paste('mean', namTerms, sep='_'))
-	theData <- mxData(cdat, 'raw')
+	regPaths <- OpenMx::mxPath(from=namTerms, to=namRespo, free=TRUE, values=.8, labels=paste(namRespo, '_on_', namTerms, sep=''))
+	predVars <- OpenMx::mxPath(from=namTerms, arrows=2, free=TRUE, values=1, labels=paste('var', namTerms, sep='_'))
+	residVar <- OpenMx::mxPath(from=namRespo, arrows=2, free=TRUE, values=1, labels=paste('residVar', namRespo, sep='_'))
+	theInter <- OpenMx::mxPath(from='one', to=namRespo, labels='Intercept', values=0, free=!is.na(whichInt))
+	theMeans <- OpenMx::mxPath(from='one', to=namTerms, labels=paste('mean', namTerms, sep='_'))
+	theData <- OpenMx::mxData(cdat, 'raw')
 
-	model <- mxModel('model', type='RAM', manifestVars=namAll, theInter, regPaths, residVar, theMeans, predVars, theData)
+	model <- OpenMx::mxModel('model', type='RAM', manifestVars=namAll, theInter, regPaths, residVar, theMeans, predVars, theData)
 	
 	if(run==TRUE){
-		model <- mxRun(model)
+		model <- OpenMx::mxRun(model)
 	}
 	return(model)
 }

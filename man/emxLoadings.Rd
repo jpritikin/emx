@@ -33,9 +33,9 @@ The \code{x} argument must be a named list.  The names of the list give the name
 \link{emxFactorModel}
 }
 
-\references{
-
-}
+%\references{
+%
+%}
 
 \examples{
    

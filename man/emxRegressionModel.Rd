@@ -35,9 +35,9 @@ The \code{model} argument is a formula identical to what is used in \code{link{l
 \link{lm}
 }
 
-\references{
-
-}
+%\references{
+%
+%}
 
 \examples{
    

@@ -19,21 +19,21 @@ emxThresholds(data, ordinalCols)
    \item{ordinalCols}{optional character vector.  The names of the ordinal variables in the data.}
 }
 
-\details{
+%\details{
 % TODO add info about the deviations used to keep thresholds in order.
-}
+%}
 
 \value{
     An MxMatrix giving the thresholds.
 }
 
 \seealso{
-\link{emxFactorModel,emxGrowthModel}
+\link{emxFactorModel}, \link{emxGrowthModel}
 }
 
-\references{
-
-}
+%\references{
+%
+%}
 
 \examples{
    

@@ -21,15 +21,13 @@ emxMeans(x, values=0, free=TRUE, path=FALSE, type='saturated', name, column=TRUE
    \item{path}{logical. Whether to return the MxPath object instead of the MxMatrix.}
    \item{type}{character.  The kind of covariance structure to create.  See Details.}
    \item{name}{The name of the matrix created.}
+   \item{column}{logical. Whether to create the means vector as a column or row.}
+   \item{labels}{character vector. Optional labels for the means.}
 }
 
 \details{
-Possible values for the \code{type} argument are 'independent', 'full', and 'corr'.  When \code{type='independent'}, the remaining arguments are passes to \link{\code{emxResiduals}}.  The \code{values} and \code{free} arguments are only used when the \code{type} argument is 'independent'.  For all other cases, they are ignored.
-
-When \code{type='full'}, a full covariance matrix is created.  That is, a symmetric matrix is created with all unique elements freely estimated.  The starting values for the variances are all 1; for the covariances, all 0.5.
-
-When \code{type='corr'}, a full correlation matrix is created.  That is, a symmetric matrix is created with all unique elements not on the diagonal freely estimated.  The starting values for the correlations are all 0.5.  The variances are fixed at 1.
-
+Possible values for the \code{type} argument are 'saturated', 'equal', 'twin', 'special'.
+% TODO describe the behavior for each type.
 }
 
 \value{
@@ -37,21 +35,19 @@ When \code{type='corr'}, a full correlation matrix is created.  That is, a symme
 }
 
 \seealso{
-\link{emxFactorModel,emxGrowthModel}
+\link{emxFactorModel}, \link{emxGrowthModel}
 }
 
-\references{
-
-}
+%\references{
+%
+%}
 
 \examples{
    
 # Create a covariance matrix
 require(emx)
 manVars <- paste0('x', 1:6)
-latVars <- paste0('F', 1:2)
-emxCovariances(manVars, type='full')
-emxCovariances(latVars, type='corr', path=TRUE)
+emxMeans(manVars, type='saturated')
 
 
 }

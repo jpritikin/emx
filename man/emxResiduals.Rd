@@ -33,12 +33,12 @@ Possible values for the \code{type} argument are 'unique' and 'identical'.  When
 }
 
 \seealso{
-\link{emxFactorModel,emxGrowthModel}
+\link{emxFactorModel}, \link{emxGrowthModel}
 }
 
-\references{
-
-}
+%\references{
+%
+%}
 
 \examples{
    

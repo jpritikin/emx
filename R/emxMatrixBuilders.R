@@ -10,7 +10,7 @@ matrix2path <- function(x, arrows=1){
 }
 
 emxLoadings <- function(x, values=.8, free=TRUE, path=FALSE){
-	ret <- mxMatrix(
+	ret <- OpenMx::mxMatrix(
 		'Full',
 		nrow=length(unique(unlist(x))),
 		ncol=length(x),
@@ -34,7 +34,7 @@ emxResiduals <- function(x, values=.2, free=TRUE, lbound=NA, ubound=NA, path=FAL
 	} else if(type=='identical'){
 		lab <- 'Resid'
 	}
-	ret <- mxMatrix('Diag', length(x), length(x), free, values, labels=lab, lbound=lbound, ubound=ubound, dimnames=list(x, x), name='Residuals')
+	ret <- OpenMx::mxMatrix('Diag', length(x), length(x), free, values, labels=lab, lbound=lbound, ubound=ubound, dimnames=list(x, x), name='Residuals')
 	if(path) { ret <- matrix2path(ret)}
 	return(ret)
 }
@@ -55,7 +55,7 @@ emxCovariances <- function(x, values, free, path, type, name='Variances'){
 		diag(phlab) <- paste('Var', diag(phlab), sep='')
 		phlab[lower.tri(phlab)] <- paste('Cov', phlab[lower.tri(phlab)], sep='')
 		phlab <- phlab[lower.tri(phlab, diag=TRUE)]
-		ret <- mxMatrix('Symm', length(x), length(x), phfre, phval, labels=phlab, dimnames=list(x, x), name=name)
+		ret <- OpenMx::mxMatrix('Symm', length(x), length(x), phfre, phval, labels=phlab, dimnames=list(x, x), name=name)
 	} else if(type=='corr'){
 		phval <- matrix(.5, nrow=length(x), ncol=length(x))
 		diag(phval) <- 1
@@ -65,7 +65,7 @@ emxCovariances <- function(x, values, free, path, type, name='Variances'){
 		diag(phlab) <- paste('Var', diag(phlab), sep='')
 		phlab[lower.tri(phlab)] <- paste('Cov', phlab[lower.tri(phlab)], sep='')
 		phlab <- phlab[lower.tri(phlab, diag=TRUE)]
-		ret <- mxMatrix('Symm', length(x), length(x), phfre, phval, labels=phlab, dimnames=list(x, x), name=name)
+		ret <- OpenMx::mxMatrix('Symm', length(x), length(x), phfre, phval, labels=phlab, dimnames=list(x, x), name=name)
 	}
 	if(path) { ret <- matrix2path(ret)}
 	return(ret)
@@ -84,8 +84,8 @@ emxMeans <- function(x, values=0, free=TRUE, path=FALSE, type='saturated', name,
 		#TODO add error check
 		lab <- labels
 	}
-	if(column) ret <- mxMatrix('Full', length(x), 1, free, values, labels=lab, dimnames=list(x, NULL), name=name)
-	else ret <- mxMatrix('Full', 1, length(x), free, values, labels=lab, dimnames=list(NULL, x), name=name)
+	if(column) ret <- OpenMx::mxMatrix('Full', length(x), 1, free, values, labels=lab, dimnames=list(x, NULL), name=name)
+	else ret <- OpenMx::mxMatrix('Full', 1, length(x), free, values, labels=lab, dimnames=list(NULL, x), name=name)
 	if(path) { ret <- matrix2path(ret)}
 	return(ret)
 }
@@ -107,7 +107,7 @@ emxThresholds <- function(data, ordinalCols){
 	maxLevels <- max(numOrdinalLevels)
 	numThresholds <- maxLevels-1
 	thrdnam <- paste(rep(ordnam, each=numThresholds), 'ThrDev', 1:numThresholds, sep='')
-	unitLower <- mxMatrix("Lower", numThresholds, numThresholds, values=1, free=FALSE, name="unitLower")
+	unitLower <- OpenMx::mxMatrix("Lower", numThresholds, numThresholds, values=1, free=FALSE, name="unitLower")
 	thrfre <- matrix(NA, numThresholds, numOrdinal)
 	thrval <- matrix(NA, numThresholds, numOrdinal)
 	for(i in 1:numOrdinal){
@@ -119,7 +119,7 @@ emxThresholds <- function(data, ordinalCols){
 			thrval[,i] <- rep(.2, numThresholds)
 		#}
 	}
-	thresholdDeviations <- mxMatrix("Full", 
+	thresholdDeviations <- OpenMx::mxMatrix("Full", 
 			name="thresholdDeviations", nrow=numThresholds, ncol=numOrdinal,
 			values=thrval,
 			free = thrfre,
@@ -127,7 +127,7 @@ emxThresholds <- function(data, ordinalCols){
 			lbound = rep( c(-Inf,rep(.01, (numThresholds-1))) , numOrdinal), # TODO adjust increment value
 			dimnames = list(c(), varnam[ordinalCols]),
 					)
-	saturatedThresholds <- mxAlgebra(unitLower %*% thresholdDeviations, name="thresholdMatrix")
+	saturatedThresholds <- OpenMx::mxAlgebra(unitLower %*% thresholdDeviations, name="thresholdMatrix")
 	ret <- list(unitLower, thresholdDeviations, saturatedThresholds)
 	if(any(isBinary)){
 		Iblock <- diag(1, numBinary)
@@ -137,13 +137,14 @@ emxThresholds <- function(data, ordinalCols){
 		binaryFilterValues <- cbind(Iblock, Zblock)
 		binaryFilterValues <- binaryFilterValues[,varnam]
 		BinaryVarianceFilteringMatrix <- NULL  # avoid CRAN check warning
-		binaryFilter <- mxMatrix('Full', nrow=numBinary, ncol=numVar, values=binaryFilterValues, free=FALSE, name='BinaryVarianceFilteringMatrix')
+		binaryFilter <- OpenMx::mxMatrix('Full', nrow=numBinary, ncol=numVar, values=binaryFilterValues, free=FALSE, name='BinaryVarianceFilteringMatrix')
 		BinaryVarianceFilteringAlgebra <- NULL  # avoid CRAN check warning
-		binaryAlgebraSat <- mxAlgebra(
+		satCov <- NULL
+		binaryAlgebraSat <- OpenMx::mxAlgebra(
 			BinaryVarianceFilteringMatrix %*% diag2vec(satCov), name='BinaryVarianceFilteringAlgebra')
 		BinaryConstantVectorOfOnes <- NULL  # avoid CRAN check warning
-		binaryConstant <- mxMatrix('Full', nrow=numBinary, ncol=1, values=1, free=FALSE, name='BinaryConstantVectorOfOnes')
-		binaryConstraint <- mxConstraint(
+		binaryConstant <- OpenMx::mxMatrix('Full', nrow=numBinary, ncol=1, values=1, free=FALSE, name='BinaryConstantVectorOfOnes')
+		binaryConstraint <- OpenMx::mxConstraint(
 			BinaryConstantVectorOfOnes == BinaryVarianceFilteringAlgebra, name='BinaryVarianceConstraint')
 		#ret <- c(ret, list(binaryFilter, binaryAlgebraSat, binaryConstant, binaryConstraint))
 	}

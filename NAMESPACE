@@ -1,1 +1,5 @@
-exportPattern("^[[:alpha:]]+")
+
+import(OpenMx)
+
+#exportPattern("^[[:alpha:]]+")
+exportPattern("^emx.+")

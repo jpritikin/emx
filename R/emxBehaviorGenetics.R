@@ -4,7 +4,7 @@
 emxVarianceComponents <- function(model, data, run){
 	
 	if(run==TRUE){
-		model <- mxRun(model)
+		model <- OpenMx::mxRun(model)
 	}
 	return(model)
 }
@@ -16,11 +16,13 @@ emxVarianceComponents <- function(model, data, run){
 # Mid-level Functions
 
 emxCholeskyVariance <- function(x, name, values=.8, free=TRUE){
+	# TODO process the actual names of the variables given in x
+	# These can be the dimnames of the OpenMx::mxMatrix and OpenMx::mxAlgebra
 	nvar <- length(x)
 	sqrtName <- paste0('sqrt', name)
 	labs <- paste0(sqrtName, outer(1:nvar, 1:nvar, paste0)[lower.tri(matrix(0, nvar, nvar), diag=TRUE)])
-	lowerm <- mxMatrix('Lower', nvar, nvar, free, values, labels=labs, name=paste0('sqrt', name))
-	algText <- paste0('mxAlgebra(', sqrtName,' %*% t(', sqrtName, '), name=name)')
+	lowerm <- OpenMx::mxMatrix('Lower', nvar, nvar, free, values, labels=labs, name=sqrtName)
+	algText <- paste0('mxAlgebra(', sqrtName,' %*% t(', sqrtName, '), name="', name, '")')
 	fullm <- eval(parse(text=algText))
 	return(list(lowerm, fullm))
 }
@@ -41,7 +43,7 @@ emxGeneticFactorVariance <- function(x, name, values=.8, free=TRUE, lbound=NA, u
 	nvar <- length(x)
 	sqrtName <- paste0('inner', name)
 	labs <- paste0(sqrtName, 1:nvar)
-	lowerm <- mxMatrix('Full', nvar, 1, free, values, labels=labs, name=sqrtName, lbound=lbound, ubound=ubound)
+	lowerm <- OpenMx::mxMatrix('Full', nvar, 1, free, values, labels=labs, name=sqrtName, lbound=lbound, ubound=ubound)
 	algText <- paste0('mxAlgebra(', sqrtName,' %*% t(', sqrtName, '), name=name)')
 	fullm <- eval(parse(text=algText))
 	return(list(lowerm, fullm))
@@ -82,16 +84,19 @@ emxTwinModel <- function(model, relatedness, data, run=FALSE, use, name='model')
 	acomp <- emxCholeskyComponent(x, 'A', hvalues=c(1, .5, 1), hlabels=c(NA, paste0('data.', relatedness), NA))
 	ccomp <- emxCholeskyComponent(x, 'C', hvalues=c(1, 1, 1))
 	ecomp <- emxCholeskyComponent(x, 'E', hvalues=c(1, 0, 1))
-	totalVar <- mxAlgebra(AKron + CKron + EKron, 'V', dimnames=list(use, use))
+	AKron <- NULL
+	CKron <- NULL
+	EKron <- NULL
+	totalVar <- OpenMx::mxAlgebra(AKron + CKron + EKron, 'V', dimnames=list(use, use))
 	totalMean <- emxMeans(use, type='twin')
-	expect <- mxExpectationNormal(totalVar$name, totalMean$name)
-	fitfun <- mxFitFunctionML()
+	expect <- OpenMx::mxExpectationNormal(totalVar$name, totalMean$name)
+	fitfun <- OpenMx::mxFitFunctionML()
 	
 	comlist <- c(acomp, ccomp, ecomp, list(totalVar, totalMean, expect, fitfun))
 	
-	model <- mxModel(model=name, comlist, mxData(data, 'raw'))
+	model <- OpenMx::mxModel(model=name, comlist, OpenMx::mxData(data, 'raw'))
 	if(run){
-		model <- mxRun(model)
+		model <- OpenMx::mxRun(model)
 	}
 	return(model)
 }

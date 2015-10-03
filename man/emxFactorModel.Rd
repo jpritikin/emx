@@ -38,9 +38,9 @@ The \code{model} argument must be a named list.  The names of the list give the 
 \link{emxLoadings}
 }
 
-\references{
-
-}
+%\references{
+%
+%}
 
 \examples{
    

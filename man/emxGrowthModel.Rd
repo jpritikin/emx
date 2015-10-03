@@ -33,12 +33,12 @@ The \code{model} argument can be either a character or a number that tells the k
 }
 
 \seealso{
-\link{emxFactorModel,emxGrowthModel}
+\link{emxFactorModel}, \link{emxGrowthModel}
 }
 
-\references{
-
-}
+%\references{
+%
+%}
 
 \examples{
    
