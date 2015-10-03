@@ -40,11 +40,10 @@ emxGeneticFactorVariance(x, name, values=.8, free=TRUE, lbound=NA, ubound=NA)
 
 \examples{
    
-# Create a loadings matrix
+# Create a genetic factor variance matrix
 require(emx)
-amat <- emxCholeskyVariance(x, 'A')
-ahmat <- emxRelatednessMatrix(2, c(1, .5, 1), name='AH')
-ab <- emxKroneckerVariance(ahmat, amat[[2]], 'AB')
+xvars <- paste0('x', 1:2)
+emxGeneticFactorVariance(xvars, 'D')
 
 }
 

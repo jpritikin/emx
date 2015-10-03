@@ -10,7 +10,7 @@ This function creates a covariance matrix as an MxMatrix or MxPath object.
 }
 
 \usage{
-emxCovariances(x, values, free, path, type, name='Variances')
+emxCovariances(x, values, free, path=FALSE, type, name='Variances')
 }
 
 

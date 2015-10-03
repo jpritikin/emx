@@ -39,7 +39,7 @@ emxResiduals <- function(x, values=.2, free=TRUE, lbound=NA, ubound=NA, path=FAL
 	return(ret)
 }
 
-emxCovariances <- function(x, values, free, path, type, name='Variances'){
+emxCovariances <- function(x, values, free, path=FALSE, type, name='Variances'){
 	theTypes <- c('independent', 'full', 'corr')
 	if(!(type  %in% theTypes)){
 		stop(paste("'type' argument not valid.  Valid types are", omxQuotes(theTypes)))

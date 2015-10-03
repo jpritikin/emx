@@ -42,8 +42,9 @@ This function is a combination of emxGeneticFactorVariance, emxRelatednessMatrix
 
 \examples{
    
-# Create an ACE model in 22 lines
+# Create genetic factor A component for DZ twins
 require(emx)
-acomp <- emxGeneticFactorComponent(x, 'A', hvalues=c(1, .5, 1))
+xvars <- paste0('x', 1:4)
+acomp <- emxGeneticFactorComponent(xvars, 'A', hvalues=c(1, .5, 1))
 
 }
