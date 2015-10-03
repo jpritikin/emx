@@ -11,6 +11,7 @@ emxMixtureModel <- function(model, data, run=FALSE, p=NA, ...){
 			stop('Cannot proceed because model ', OpenMx::omxQuotes(modelNames[i]), ' does not have an ML fit function.')
 		}
 		models[[i]]$fitfunction <- OpenMx::mxFitFunctionML(vector=TRUE, rowDiagnostics=models[[i]]$fitfunction$rowDiagnostics)
+		models[[i]]$data <- NULL
 	}
 	model <- OpenMx::mxModel(model='MixtureModel', models, data)
 	#if(single.na(p)){
