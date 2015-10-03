@@ -1,6 +1,9 @@
 
 
-emxMixtureModel <- function(models, p=NA, data){
+emxMixtureModel <- function(model, data, run=FALSE, p=NA, ...){
+	models <- model
+	# TODO handle data better
+	data <- mxData(data, 'raw')
 	modelNames <- sapply(models, slot, 'name')
 	# Check that all models have ML fit functions
 	for(i in 1:length(models)){
@@ -22,6 +25,10 @@ emxMixtureModel <- function(models, p=NA, data){
 	theAlg2 <- OpenMx::mxAlgebra(-2*sum(log(theMixtureFitVector)), name='theMixtureFit')
 	theFit <- OpenMx::mxFitFunctionAlgebra('theMixtureFit')
 	model <- OpenMx::mxModel(model, theAlg1, theAlg2, theFit)
+	if(run){
+		model <- mxRun(model)
+	}
+	return(model)
 }
 
 #v2 <- OpenMx::mxMixtureModel(list(class1, class2), data=dataRaw)
