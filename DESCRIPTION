@@ -1,11 +1,15 @@
 Package: emx
-Date: 2015-09-02
+Date: 2015-10-05
 Type: Package
-Title: Model-builder functions for OpenMx
-Authors@R: c(person(c("Michael", "D."), "Hunter", role="aut"))
+Title: Easy model-builder functions for OpenMx
+Authors@R: c(person(c("Michael", "D."), "Hunter", email="mhunter@ou.edu", role=c("aut", "cre")))
 Author: Michael Hunter [aut, cre]
 Maintainer: Michael D. Hunter <mhunter@ou.edu>
-Description: More about what it does (maybe more than one line)
-Depends: OpenMx
-License: What license is it under?
+Description: Utilities for building certain kinds of common matrices and models in 
+    the extended structural equation modeling package, OpenMx.
+Depends: R (>= 3.0.0), OpenMx
+License: GPL
 Version: 0.1-1
+NeedsCompilation: no
+URL: https://bitbucket.org/mhunter/emx
+BugReports: https://bitbucket.org/mhunter/emx/issues
