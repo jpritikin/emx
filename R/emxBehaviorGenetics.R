@@ -22,6 +22,7 @@ emxCholeskyVariance <- function(x, name, values=.8, free=TRUE){
 	sqrtName <- paste0('sqrt', name)
 	labs <- paste0(sqrtName, outer(1:nvar, 1:nvar, paste0)[lower.tri(matrix(0, nvar, nvar), diag=TRUE)])
 	lowerm <- OpenMx::mxMatrix('Lower', nvar, nvar, free, values, labels=labs, name=sqrtName)
+	diag(lowerm$lbound) <- 1e-6
 	algText <- paste0('mxAlgebra(', sqrtName,' %*% t(', sqrtName, '), name="', name, '")')
 	fullm <- eval(parse(text=algText))
 	return(list(lowerm, fullm))

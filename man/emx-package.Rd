@@ -8,7 +8,7 @@
 \description{emx is a package for extended structural equation modeling. It is built as a higher-level frontend on top of OpenMx.  It is intended as an Easy introduction to OpenMx: Easy Mx.  Try the example below.}
 
 \details{
-All of the functions in the emx package create OpenMx objects. These are most often MxMatrix, MxAlgebra, or MxModel objects.  The primary difference between emx and OpenMx is design philosophy.  OpenMx has its foundation in WYSIWID: What you say is what it does.  This requires the user to be very explicit.  The emx package is not as strong or flexible as OpenMx, but it places less burden on the user.  Many decisions are made automatically for the user.  Some of them are modifiable within emx; for others the user is encouraged to use OpenMx, where nearly everything id modifiable.
+All of the functions in the emx package create OpenMx objects. These are most often MxMatrix, MxAlgebra, or MxModel objects.  The primary difference between emx and OpenMx is design philosophy.  OpenMx has its foundation in WYSIWID: What you say is what it does.  This requires the user to be very explicit.  The emx package is not as strong or flexible as OpenMx, but it places less burden on the user.  Many decisions are made automatically for the user.  Some of them are modifiable within emx; for others the user is encouraged to use OpenMx, where nearly everything is modifiable.
 
 The package is broadly divided into two styles of functions: matrix builders and model builders.
 
