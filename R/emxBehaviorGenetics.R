@@ -70,6 +70,16 @@ emxGeneticFactorComponent <- function(x, xname, xvalues=.8, xfree=TRUE, xlbound=
 	return(list(xmat[[1]], xmat[[2]], hmat, kmat))
 }
 
+#TODO
+# Add Independent pathway model component function
+# It's basically a genetic factor model for each A/C/E component
+#  plus a uniquenesses for each component.
+# A  = la %*% t(la) + ua
+# C  = lc %*% t(lc) + uc
+# E  = le %*% t(le) + ue
+# Cov = A+C+E
+#       h*A+C  A+C+E
+
 
 #--------------------------------------
 # Very-high level Functions
