@@ -91,8 +91,22 @@ emxTwinModel <- function(model, relatedness, data, run=FALSE, use, name='model')
 	#TODO Parse relatedness argument
 		#When string, interpret as name of variables in data set giving coeficient of relatedness
 		#When single number, interpret as numeric value of the coefficient of relatedness
+	rlen <- length(relatedness)
+	if(rlen == 1){
+		if(is.numeric(relatedness)){
+			hval <- c(1, relatedness, 1)
+			hlab <- c(NA, NA, NA)
+		} else if(is.character(relatedness)){
+			hval <- c(1, .5, .1)
+			hlab <- c(NA, paste0('data.', relatedness), NA)
+		}
+	} else if(rlen == nrow(data)){
+		data <- cbind(data, RelatednessCoefficient=relatedness)
+		hval <- c(1, .5, .1)
+		hlab <- c(NA, paste0('data.', 'RelatednessCoefficient'), NA)
+	}
 	x <- paste0('x', 1:(length(use)/2))
-	acomp <- emxCholeskyComponent(x, 'A', hvalues=c(1, .5, 1), hlabels=c(NA, paste0('data.', relatedness), NA))
+	acomp <- emxCholeskyComponent(x, 'A', hvalues=hval, hlabels=hlab)
 	ccomp <- emxCholeskyComponent(x, 'C', hvalues=c(1, 1, 1))
 	ecomp <- emxCholeskyComponent(x, 'E', hvalues=c(1, 0, 1))
 	AKron <- NULL

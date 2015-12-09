@@ -23,9 +23,8 @@ mod <- emxFactorModel(xmap, data=myFADataRaw, run=TRUE)
 
 # Example
 data(jointdata)
-jointdata[, c(2, 4, 5)] <- mxFactor(jointdata[,c(2, 4, 5)], levels=sapply(jointdata[,c(2, 4, 5)], function(x){sort(unique(x))}))
 xmap <- list(F=names(jointdata))
-mod <- emxFactorModel(xmap, data=jointdata, run=TRUE)
+mod <- emxFactorModel(xmap, data=jointdata, run=TRUE, ordinal=paste0('z', c(2, 4, 5)))
 sat <- mxRefModels(mod, run=TRUE)
 summary(mod, refModels=sat)
 

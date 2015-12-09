@@ -95,6 +95,12 @@ is.binary <- function(x){
 }
 
 emxThresholds <- function(data, ordinalCols){
+	if(length(ordinalCols) <= 0){
+		stop('You have not specified any ordinal columns.')
+	}
+	if(length(ordinalCols) != ncol(data)){
+		stop('Weirdness.  You have a difference number of ordinal columns and data columns.')
+	}
 	numVar <- ncol(data)
 	varnam <- names(data)
 	ordnam <- names(data[,ordinalCols])
