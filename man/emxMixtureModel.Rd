@@ -18,12 +18,14 @@ emxMixtureModel(model, data, run=FALSE, p=NA, ...)
    \item{model}{list. The MxModel objects that compose the mixture.}
    \item{data}{data used for the model}
    \item{run}{logical. Whether to run the model before returning.}
-   \item{p}{character.  Name of the mixing proportions matrix.}
+   \item{p}{character.  Optional name of the mixing proportions matrix.}
    \item{...}{Further Mx Objects passed into the mixture model.}
 }
 
 \details{
 The \code{model} argument is list of MxModel objects.  These are the classes over which the mixture model operates.
+
+The \code{p} argument is optional.  If not specified, the function will create and properly scale the mixing proportions for you.  If specified, the Mx Object that gives the mixing proportions should be a column vector (one-column matrix).
 
 }
 

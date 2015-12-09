@@ -14,13 +14,15 @@ emxMixtureModel <- function(model, data, run=FALSE, p=NA, ...){
 		models[[i]]$data <- NULL
 	}
 	model <- OpenMx::mxModel(model='MixtureModel', models, data)
-	#if(single.na(p)){
+	if(OpenMx:::single.na(p)){
 		p1 <- OpenMx::mxMatrix('Full', nrow=length(models), ncol=1, lbound=0, ubound=1, values=1/length(models), free=TRUE, name='theSmallPMatrix', labels=paste0('unscaledProportionForModel', modelNames))
 		theSmallPMatrix <- NULL
 		p2 <- OpenMx::mxAlgebra((1/sum(theSmallPMatrix)) %x% theSmallPMatrix, name='theScaledPMatrix')
 		p <- 'theScaledPMatrix'
-		model <- OpenMx::mxModel(model, p1, p2)
-	#}
+		model <- OpenMx::mxModel(model, p1, p2, ...)
+	} else {
+		model <- OpenMx::mxModel(model, ...)
+	}
 	theAlg1 <- OpenMx::mxAlgebraFromString(paste('cbind(', paste(modelNames, '.fitfunction', sep='', collapse=', '), ') %*% ', p, sep=''), name='theMixtureFitVector')
 	theMixtureFitVector <- NULL
 	theAlg2 <- OpenMx::mxAlgebra(-2*sum(log(theMixtureFitVector)), name='theMixtureFit')
