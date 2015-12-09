@@ -15,7 +15,7 @@ emxMixtureModel <- function(model, data, run=FALSE, p=NA, ...){
 	}
 	model <- OpenMx::mxModel(model='MixtureModel', models, data)
 	if(OpenMx:::single.na(p)){
-		p1 <- OpenMx::mxMatrix('Full', nrow=length(models), ncol=1, values=1, free=c(FALSE, rep(TRUE, length(models)-1)), name='theSmallPMatrix', labels=paste0('unscaledProportionForModel', modelNames))
+		p1 <- OpenMx::mxMatrix('Full', nrow=length(models), ncol=1, values=1, lbound=1e-6, free=c(FALSE, rep(TRUE, length(models)-1)), name='theSmallPMatrix', labels=paste0('unscaledProportionForModel', modelNames))
 		theSmallPMatrix <- NULL
 		p2 <- OpenMx::mxAlgebra((1/sum(theSmallPMatrix)) %x% theSmallPMatrix, name='theScaledPMatrix')
 		p <- 'theScaledPMatrix'
