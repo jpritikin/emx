@@ -10,6 +10,7 @@ emxFactorModel <- function(model, data, name, run=FALSE, identification, use, or
 	numVar <- length(use)
 	latents <- names(model)
 	manifests <- use
+	# TODO Write more general data processing module
 	if( nrow(data) == ncol(data) && all(data == t(data)) ){
 		data <- data[use, use]
 		bdata <- OpenMx::mxData(data, 'cov')
@@ -110,29 +111,40 @@ resolveGrowthModel <- function(x){
 	else{stop('I do not understand your model arument.')}
 }
 
-emxGrowthModel <- function(model, data, name, run=FALSE, identification, use, ordinal){
+
+
+emxGrowthModel <- function(model, data, name, run=FALSE, identification, use, ordinal, times){
 	if(missing(name)){name <- 'Model'}
 	if(missing(use)){stop('You must specify use for growth models')}
+	if(missing(times)){times <- 0:(length(use)-1)}
 	order <- resolveGrowthModel(model)
 	latents <- paste('F', 0:order, sep='')
 	manifests <- use
+	# TODO Write more general data processing module
 	if( nrow(data) == ncol(data) && all(data == t(data)) ){
 		bdata <- OpenMx::mxData(data, 'cov')
 	} else {
-		if(!any(is.na(data))){
-			bdata <- OpenMx::mxData(cov(data), 'cov', means=colMeans(data), numObs=nrow(data))
-		} else {
+		#if(!any(is.na(data))){
+		#	bdata <- OpenMx::mxData(cov(data), 'cov', means=colMeans(data), numObs=nrow(data))
+		#} else {
 		bdata <- OpenMx::mxData(data, 'raw')
-		}
+		#}
 	}
 	mmat <- emxMeans(x=use, values=0, free=FALSE, type='equal')
-	lval <- GrowthBasisMatrix(length(use), order=order)
-	lmat <- OpenMx::mxMatrix('Full', length(use), length(latents), FALSE, values=lval, name='Loadings', dimnames=list(manifests, latents))
+	if(is.numeric(times)){
+		lval <- GrowthBasisMatrix(steps=times, order=order)
+		lmat <- OpenMx::mxMatrix('Full', length(use), length(latents), FALSE, values=lval, name='Loadings', dimnames=list(manifests, latents))
+		tmat <- NULL
+	} else if(is.character(times)){
+		tmat <- OpenMx::mxMatrix('Full', length(use), 1, FALSE, values=1, name='Times', labels=paste0('data.', times))
+		tstring <- paste0('cbind( ', paste('Times^', 0:order, sep='', collapse=', '), ' )')
+		lmat <- OpenMx::mxAlgebraFromString(tstring, name='Loadings', dimnames=list(manifests, latents))
+	}
 	rmat <- emxResiduals(x=use, type='identical')
 	ka <- emxMeans(x=latents, free=TRUE, name='LatentMeans')
 	ph <- emxCovariances(x=latents, type='full', name='LatentVariances')
 	bmodel <- OpenMx::mxModel(name=name,
-		lmat, rmat, mmat, ka, ph,
+		lmat, rmat, mmat, ka, ph, tmat,
 		bdata,
 		mxExpectationLISREL(
 			LX=slot(lmat, 'name'),

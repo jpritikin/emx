@@ -65,10 +65,18 @@ summary(fit)
 # Example
 data(myLongitudinalData)
 mod <- emxGrowthModel('Linear', data=myLongitudinalData, use=names(myLongitudinalData), run=TRUE)
-
+c1 <- coef(mod)
 # can also do 'Intercept', 'Quadratic', etc., and numbers 0:100+
 
+myLongitudinalData$t0 <- 0
+myLongitudinalData$t1 <- 1
+myLongitudinalData$t2 <- 2
+myLongitudinalData$t3 <- 3
+myLongitudinalData$t4 <- 4
 
+mod <- emxGrowthModel('Linear', data=myLongitudinalData, use=names(myLongitudinalData)[1:5], run=TRUE, times=paste0('t', 0:4))
+
+omxCheckCloseEnough(c1, coef(mod))
 
 #------------------------------------------------------------------------------
 # Regression with FIML
