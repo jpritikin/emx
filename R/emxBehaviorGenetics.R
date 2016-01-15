@@ -71,6 +71,16 @@ emxGeneticFactorComponent <- function(x, xname, xvalues=.8, xfree=TRUE, xlbound=
 }
 
 #TODO
+# Genetic Factor model
+# A  = la %*% t(la)
+# C  = lc %*% t(lc)
+# E  = le %*% t(le)
+# Cov = A+C+E
+#       h*A+C  A+C+E
+#
+#  la, lc, le are Nx1
+#
+#
 # Add Independent pathway model component function
 # It's basically a genetic factor model for each A/C/E component
 #  plus a uniquenesses for each component.
@@ -79,6 +89,24 @@ emxGeneticFactorComponent <- function(x, xname, xvalues=.8, xfree=TRUE, xlbound=
 # E  = le %*% t(le) + ue
 # Cov = A+C+E
 #       h*A+C  A+C+E
+#
+#  la, lc, le are Nx1
+#  ua, uc, ue are NxN diagonal
+#
+#
+# Common Pathway model component function
+# A  = lf %*% la %*% t(la) %*% lf + ua
+# C  = lf %*% lc %*% t(lc) %*% lf + uc
+# E  = lf %*% le %*% t(le) %*% lf + ue
+# Cov = A+C+E
+#       h*A+C  A+C+E
+#
+#  lf is Nx1
+#  la, lc, le are 1x1
+#  ua, uc, ue are NxN diagonal
+#
+#
+
 
 
 #--------------------------------------
