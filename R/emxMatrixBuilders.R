@@ -97,7 +97,7 @@ is.binary <- function(x){
 # ordinalCols may be a 1. logical of the same length as the number of columns in data
 #  2. character indicating the names of the variables in data
 #  3. numeric indicating which columns in the data are ordinal
-emxThresholds <- function(data, ordinalCols){
+emxThresholds <- function(data, ordinalCols=rep(TRUE, ncol(data))){
 	if(length(ordinalCols) <= 0){
 		stop('You have not specified any ordinal columns.')
 	}
