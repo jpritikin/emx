@@ -147,7 +147,7 @@ emxThresholds <- function(data, ordinalCols=rep(TRUE, ncol(data))){
 			lbound = rep( c(-Inf,rep(.01, (numThresholds-1))) , numOrdinal), # TODO adjust increment value
 			dimnames = list(c(), varnam[ordinalCols]),
 					)
-	saturatedThresholds <- OpenMx::mxAlgebra(unitLower %*% thresholdDeviations, name="thresholdMatrix")
+	saturatedThresholds <- OpenMx::mxAlgebra(unitLower %*% thresholdDeviations, name="thresholdMatrix", dimnames=dimnames(thresholdDeviations))
 	ret <- list(unitLower, thresholdDeviations, saturatedThresholds)
 	if(any(isBinary)){
 		Iblock <- diag(1, numBinary)
