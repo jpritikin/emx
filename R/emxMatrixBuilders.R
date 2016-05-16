@@ -94,9 +94,23 @@ is.binary <- function(x){
 	is.ordered(x) && length(levels(x)) == 2
 }
 
+# ordinalCols may be a 1. logical of the same length as the number of columns in data
+#  2. character indicating the names of the variables in data
+#  3. numeric indicating which columns in the data are ordinal
 emxThresholds <- function(data, ordinalCols){
 	if(length(ordinalCols) <= 0){
 		stop('You have not specified any ordinal columns.')
+	}
+	if(is.character(ordinalCols)){
+		if(!all( ordinalCols %in% names(data))){
+			stop('Some of the ordinal columns requested on not variables in the data.')
+		}
+		ordinalCols <- match(ordinalCols, names(data))
+	}
+	if(is.numeric(ordinalCols)){
+		tmp <- rep(FALSE, ncol(data))
+		tmp[ordinalCols] <- TRUE
+		ordinalCols <- tmp
 	}
 	if(length(ordinalCols) != ncol(data)){
 		stop('Weirdness.  You have a difference number of ordinal columns and data columns.')
