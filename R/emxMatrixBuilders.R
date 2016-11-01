@@ -27,6 +27,8 @@ emxLoadings <- function(x, values=.8, free=TRUE, path=FALSE){
 	if(path) { ret <- matrix2path(ret)}
 	return(ret)
 }
+# Possible alternative interface
+#  emxLoadings(x1+x2+x3~F1, x4+x5+x6~F2)
 
 emxResiduals <- function(x, values=.2, free=TRUE, lbound=NA, ubound=NA, path=FALSE, type='unique'){
 	if(type=='unique'){
