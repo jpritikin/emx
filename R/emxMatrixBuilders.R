@@ -119,7 +119,7 @@ emxThresholds <- function(data, ordinalCols=rep(TRUE, ncol(data))){
 	}
 	numVar <- ncol(data)
 	varnam <- names(data)
-	ordnam <- names(data[,ordinalCols])
+	ordnam <- colnames(data)[ordinalCols]
 	ordinalLevels <- lapply(data[,ordinalCols], levels)
 	numOrdinal <- sum(ordinalCols)
 	numOrdinalLevels <- sapply(ordinalLevels, length)
@@ -154,9 +154,12 @@ emxThresholds <- function(data, ordinalCols=rep(TRUE, ncol(data))){
 	if(any(isBinary)){
 		Iblock <- diag(1, numBinary)
 		colnames(Iblock) <- binnam
-		Zblock <- matrix(0, nrow=numBinary, ncol=numVar-numBinary)
-		colnames(Zblock) <- varnam[!(varnam %in% binnam)]
-		binaryFilterValues <- cbind(Iblock, Zblock)
+		binaryFilterValues <- Iblock
+		if (numVar-numBinary > 0) {
+			Zblock <- matrix(0, nrow=numBinary, ncol=numVar-numBinary)
+			colnames(Zblock) <- varnam[!(varnam %in% binnam)]
+			binaryFilterValues <- cbind(binaryFilterValues, Zblock)
+		}
 		binaryFilterValues <- binaryFilterValues[,varnam]
 		BinaryVarianceFilteringMatrix <- NULL  # avoid CRAN check warning
 		binaryFilter <- OpenMx::mxMatrix('Full', nrow=numBinary, ncol=numVar, values=binaryFilterValues, free=FALSE, name='BinaryVarianceFilteringMatrix')
