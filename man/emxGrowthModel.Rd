@@ -11,8 +11,8 @@ This function creates a latent growth curve model as an MxModel object.
 }
 
 \usage{
-emxGrowthModel(model, data, name, run=FALSE, identification, use, ordinal)
-emxModelGrowth(model, data, name, run=FALSE, identification, use, ordinal)
+emxGrowthModel(model, data, name, run=FALSE, identification, use, ordinal, times)
+emxModelGrowth(model, data, name, run=FALSE, identification, use, ordinal, times)
 }
 
 
@@ -45,7 +45,7 @@ The \code{model} argument can be either a character or a number that tells the k
 \examples{
    
 # Example
-require(emx)
+require(EasyMx)
 data(myLongitudinalData)
 mod <- emxGrowthModel('Linear', data=myLongitudinalData, use=names(myLongitudinalData), run=TRUE)
 
