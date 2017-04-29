@@ -40,7 +40,7 @@ This function is a combination of emxCholeskyVariance, emxRelatednessMatrix, and
 \examples{
    
 # Create an ACE model in 22 lines
-require(emx)
+require(EasyMx)
 require(OpenMx)
 data(twinData)
 twinVar = names(twinData)

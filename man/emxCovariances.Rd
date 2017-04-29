@@ -47,7 +47,7 @@ When \code{type='corr'}, a full correlation matrix is created.  That is, a symme
 \examples{
    
 # Create a covariance matrix
-require(emx)
+require(EasyMx)
 manVars <- paste0('x', 1:6)
 latVars <- paste0('F', 1:2)
 emxCovariances(manVars, type='full')

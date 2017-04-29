@@ -37,7 +37,7 @@ This function does not really do anything currently.  Do not use it.
 \examples{
    
 # Create a loadings matrix
-require(emx)
+require(EasyMx)
 
 
 }

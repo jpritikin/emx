@@ -45,7 +45,7 @@ Possible values for the \code{type} argument are 'saturated', 'equal', 'twin', '
 \examples{
    
 # Create a covariance matrix
-require(emx)
+require(EasyMx)
 manVars <- paste0('x', 1:6)
 emxMeans(manVars, type='saturated')
 

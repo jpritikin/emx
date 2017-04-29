@@ -43,7 +43,7 @@ Possible values for the \code{type} argument are 'unique' and 'identical'.  When
 \examples{
    
 # Create a residual variance matrix
-require(emx)
+require(EasyMx)
 manVars <- paste0('x', 1:6)
 emxResiduals(manVars, lbound=1e-6)
 emxResiduals(manVars, type='identical')

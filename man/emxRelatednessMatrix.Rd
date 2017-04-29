@@ -40,7 +40,7 @@ The \code{labels} argument can be used to create a "definition variable" which p
 \examples{
    
 # Create a Cholesky variance matrix called 'A'
-require(emx)
+require(EasyMx)
 ahmat <- emxRelatednessMatrix(2, c(1, .5, 1), labels=c(NA, 'data.RCoef', NA), name='AH')
 # data.RCoef creates a definition variable and ignores the .5 value.
 

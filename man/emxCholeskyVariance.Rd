@@ -40,7 +40,7 @@ This is a helper function for creating a matrix that is symmetric and positive d
 \examples{
    
 # Create a Cholesky variance matrix called 'A'
-require(emx)
+require(EasyMx)
 nVar <- 3
 x <- paste0('x', 1:nVar)
 amat <- emxCholeskyVariance(x, 'A')

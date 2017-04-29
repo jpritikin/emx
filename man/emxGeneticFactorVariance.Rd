@@ -41,7 +41,7 @@ emxGeneticFactorVariance(x, name, values=.8, free=TRUE, lbound=NA, ubound=NA)
 \examples{
    
 # Create a genetic factor variance matrix
-require(emx)
+require(EasyMx)
 xvars <- paste0('x', 1:2)
 emxGeneticFactorVariance(xvars, 'D')
 

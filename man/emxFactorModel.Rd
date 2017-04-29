@@ -47,7 +47,7 @@ The \code{model} argument must be a named list.  The names of the list give the 
 \examples{
    
 # Example
-require(emx)
+require(EasyMx)
 data(myFADataRaw)
 xmap <- list(F1=paste0('x', 1:6), F2=paste0('y', 1:3), F3=paste0('z', 1:3))
 mod <- emxFactorModel(xmap, data=myFADataRaw, run=TRUE)

@@ -46,7 +46,7 @@ The \code{p} argument is optional.  If not specified, the function will create a
 \examples{
    
 # Example
-require(emx)
+require(EasyMx)
 data(myFADataRaw)
 xmap1 <- list(F1=paste0('x', 1:6), F2=paste0('y', 1:3), F3=paste0('z', 1:3))
 mod1 <- emxFactorModel(xmap1, data=myFADataRaw, name='m1')

@@ -53,7 +53,7 @@ confounding constructs is harder than you think. <i>PLoS ONE,
 \examples{
    
 # Example
-require(emx)
+require(EasyMx)
 data(myRegDataRaw)
 myrdr <- myRegDataRaw
 myrdr[1, 4] <- NA

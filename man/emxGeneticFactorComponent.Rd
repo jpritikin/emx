@@ -43,7 +43,7 @@ This function is a combination of emxGeneticFactorVariance, emxRelatednessMatrix
 \examples{
    
 # Create genetic factor A component for DZ twins
-require(emx)
+require(EasyMx)
 xvars <- paste0('x', 1:4)
 acomp <- emxGeneticFactorComponent(xvars, 'A', hvalues=c(1, .5, 1))
 

@@ -44,7 +44,7 @@ Because the model argument is ignored and the relatedness argument has limited u
 # Create an ACE model in 10 lines
 # 8 of those are data handling.
 # 2 are the actual model.
-require(emx)
+require(EasyMx)
 require(OpenMx)
 data(twinData)
 twinVar = names(twinData)

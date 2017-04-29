@@ -37,7 +37,7 @@ In many behavior genetic models, a relationship matrix is combined with a base v
 \examples{
    
 # Create a loadings matrix
-require(emx)
+require(EasyMx)
 x <- letters[23:26]
 amat <- emxCholeskyVariance(x, 'A')
 ahmat <- emxRelatednessMatrix(2, c(1, .5, 1), name='AH')

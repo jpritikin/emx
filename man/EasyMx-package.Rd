@@ -29,7 +29,7 @@ Finally, a mixture model helper is provided: \code{\link{emxMixtureModel}}.
 \examples{
 
 # Make and run a one factor model
-require(emx)
+require(EasyMx)
 
 data(demoOneFactor)
 fmod <- list(G=names(demoOneFactor))
