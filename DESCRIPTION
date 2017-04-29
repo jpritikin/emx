@@ -11,5 +11,5 @@ Depends: R (>= 3.0.0), OpenMx
 License: GPL
 Version: 0.1-1
 NeedsCompilation: no
-URL: https://bitbucket.org/mhunter/EasyMx
-BugReports: https://bitbucket.org/mhunter/EasyMx/issues
+URL: https://bitbucket.org/mhunter/easymx
+BugReports: https://bitbucket.org/mhunter/easymx/issues
