@@ -1,5 +1,6 @@
 \name{emxTwinModel}
 \alias{emxTwinModel}
+\alias{emxModelTwin}
 
 \title{Creates behavior genetics Twin Model}
 
@@ -9,6 +10,7 @@ This function creates an MxModel and associated objects for a basic Twin model.
 
 \usage{
 emxTwinModel(model, relatedness, data, run=FALSE, use, name='model')
+emxModelTwin(model, relatedness, data, run=FALSE, use, name='model')
 }
 
 

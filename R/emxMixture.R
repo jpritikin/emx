@@ -34,6 +34,8 @@ emxMixtureModel <- function(model, data, run=FALSE, p=NA, ...){
 	return(model)
 }
 
+emxModelMixture <- emxMixtureModel
+
 #v2 <- OpenMx::mxMixtureModel(list(class1, class2), data=dataRaw)
 #v2r <- OpenMx::mxRun(v2)
 #summary(v2r)

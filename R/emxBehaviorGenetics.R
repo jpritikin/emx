@@ -156,4 +156,5 @@ emxTwinModel <- function(model, relatedness, data, run=FALSE, use, name='model')
 
 #emxCholeskyModel(model=c('A','C', 'E'), relatedness=c('standard', 'RCoef'), data=mzdzData)
 
+emxModelTwin <- emxTwinMdoel
 

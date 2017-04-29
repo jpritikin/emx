@@ -2,6 +2,7 @@
 
 \name{emxGrowthModel}
 \alias{emxGrowthModel}
+\alias{emxModelGrowth}
 
 \title{Create a latent growth curve model}
 
@@ -11,6 +12,7 @@ This function creates a latent growth curve model as an MxModel object.
 
 \usage{
 emxGrowthModel(model, data, name, run=FALSE, identification, use, ordinal)
+emxModelGrowth(model, data, name, run=FALSE, identification, use, ordinal)
 }
 
 

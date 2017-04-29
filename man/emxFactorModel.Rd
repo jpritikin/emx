@@ -2,6 +2,7 @@
 
 \name{emxFactorModel}
 \alias{emxFactorModel}
+\alias{emxModelFactor}
 
 \title{Create a factor model}
 
@@ -11,6 +12,7 @@ This function creates a factor model as an MxModel object.
 
 \usage{
 emxFactorModel(model, data, name, run=FALSE, identification, use, ordinal)
+emxModelFactor(model, data, name, run=FALSE, identification, use, ordinal)
 }
 
 

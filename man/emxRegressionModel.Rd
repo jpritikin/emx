@@ -2,6 +2,7 @@
 
 \name{emxRegressionModel}
 \alias{emxRegressionModel}
+\alias{emxModelRegression}
 
 \title{Create a regression model}
 
@@ -11,6 +12,7 @@ This function creates a regression model as an MxModel object.
 
 \usage{
 emxRegressionModel(model, data, type='Steven', run, ...)
+emxModelRegression(model, data, type='Steven', run, ...)
 }
 
 

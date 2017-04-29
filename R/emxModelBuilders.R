@@ -71,7 +71,7 @@ emxFactorModel <- function(model, data, name, run=FALSE, identification, use, or
 	return(bmodel)
 }
 
-
+emxModelFactor <- emxFactorModel
 
 
 
@@ -158,6 +158,8 @@ emxGrowthModel <- function(model, data, name, run=FALSE, identification, use, or
 	return(bmodel)
 }
 
+emxModelGrowth <- emxGrowthModel
+
 
 
 
@@ -206,6 +208,9 @@ emxRegressionModel <- function(model, data, type='Steven', run, ...){
 	}
 	return(model)
 }
+
+
+emxModelRegression <- emxRegressionModel
 
 
 

@@ -2,6 +2,7 @@
 
 \name{emxMixtureModel}
 \alias{emxMixtureModel}
+\alias{emxModelMixture}
 
 \title{Create a mixture model}
 
@@ -11,6 +12,7 @@ This function creates a mxiture model as an MxModel object.
 
 \usage{
 emxMixtureModel(model, data, run=FALSE, p=NA, ...)
+emxModelMixture(model, data, run=FALSE, p=NA, ...)
 }
 
 
