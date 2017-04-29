@@ -40,7 +40,8 @@ emxThresholds(data, ordinalCols)
 # Example
 require(emx)
 data(jointdata)
-jointdata[, c(2, 4, 5)] <- mxFactor(jointdata[,c(2, 4, 5)], levels=sapply(jointdata[,c(2, 4, 5)], function(x){sort(unique(x))}))
+jointdata[, c(2, 4, 5)] <- mxFactor(jointdata[,c(2, 4, 5)],
+	levels=sapply(jointdata[,c(2, 4, 5)], function(x){sort(unique(x))}))
 emxThresholds(jointdata, c(FALSE, TRUE, FALSE, TRUE, TRUE))
 
 }
