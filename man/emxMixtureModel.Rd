@@ -54,7 +54,7 @@ mod1 <- emxFactorModel(xmap1, data=myFADataRaw, name='m1')
 xmap2 <- list(F1=c(paste0('x', 1:6), paste0('y', 1:3), paste0('z', 1:3)))
 mod2 <- emxFactorModel(xmap2, data=myFADataRaw, name='m2')
 
-mod <- emxMixtureModel(list(mod1, mod2), data=myFADataRaw, run=TRUE)
+mod <- emxMixtureModel(list(mod1, mod2), data=myFADataRaw[1:100,], run=TRUE)
 summary(mod)
 
 
