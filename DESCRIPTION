@@ -1,7 +1,7 @@
 Package: EasyMx
 Date: 2017-04-29
 Type: Package
-Title: Easy model-builder functions for OpenMx
+Title: Easy Model-Builder Functions for OpenMx
 Authors@R: c(person(c("Michael", "D."), "Hunter", email="mhunter.ou@gmail.com", role=c("aut", "cre")))
 Author: Michael Hunter [aut, cre]
 Maintainer: Michael D. Hunter <mhunter.ou@gmail.com>
