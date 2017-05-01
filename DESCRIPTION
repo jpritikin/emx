@@ -7,6 +7,7 @@ Authors@R: c(person(c("Michael", "D."), "Hunter", email="mhunter.ou@gmail.com", 
 Author: Michael D. Hunter [aut, cre],
     Joshua N. Pritikin [ctb]
 Maintainer: Michael D. Hunter <mhunter.ou@gmail.com>
+Imports: methods
 Description: Utilities for building certain kinds of common matrices and models in 
     the extended structural equation modeling package, OpenMx.
 Depends: R (>= 3.0.0), OpenMx
