@@ -1,9 +1,11 @@
 Package: EasyMx
-Date: 2017-04-29
+Date: 2017-05-01
 Type: Package
 Title: Easy Model-Builder Functions for OpenMx
-Authors@R: c(person(c("Michael", "D."), "Hunter", email="mhunter.ou@gmail.com", role=c("aut", "cre")))
-Author: Michael D. Hunter [aut, cre]
+Authors@R: c(person(c("Michael", "D."), "Hunter", email="mhunter.ou@gmail.com", role=c("aut", "cre")),
+    person(c("Joshua", "N."), "Pritikin", email="jpritikin@pobox.com", role='ctb'))
+Author: Michael D. Hunter [aut, cre],
+    Joshua N. Pritikin [ctb]
 Maintainer: Michael D. Hunter <mhunter.ou@gmail.com>
 Description: Utilities for building certain kinds of common matrices and models in 
     the extended structural equation modeling package, OpenMx.
