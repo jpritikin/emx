@@ -33,8 +33,9 @@ emxFactorModel <- function(model, data, name, run=FALSE, identification, use, or
 		if(!any(is.na(data)) && !any(ordinalCols)){
 			bdata <- OpenMx::mxData(cov(data), 'cov', means=colMeans(data), numObs=nrow(data))
 		} else {
-			if(any(ordinalCols) && !all(apply(data[,ordinalCols], 2, is.ordered))){
-				data[, ordinalCols] <- mxFactor(data[,ordinalCols], levels=sapply(data[,ordinalCols], function(x){sort(unique(x))}))
+                    unconverted <- ordinalCols & !sapply(data, is.ordered)
+			if(any(unconverted)) {
+				data[, unconverted] <- mxFactor(data[,unconverted], levels=sapply(data[,ordinalCols], function(x){sort(unique(x))}))
 			}
 			bdata <- OpenMx::mxData(data, 'raw')
 		}
