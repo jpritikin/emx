@@ -77,7 +77,10 @@ emxFactorModel <- function(model, data, name, run=FALSE, identification, use, or
 		stop("emxFactorModel does not accept values for the '...' argument")
 	}
 	if(missing(name)){name <- 'Model'}
-	if(missing(use)){use <- sort(unique(unlist(model)))}
+	if(missing(use)){
+            use <- unlist(model)
+            use <- use[!duplicated(use)]
+        }
 	numVar <- length(use)
 	parameterization <- match.arg(parameterization)
 	# TODO Write more general data processing module
