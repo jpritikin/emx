@@ -93,7 +93,7 @@ emxFactorModel <- function(model, data, name, run=FALSE, identification, use, or
             if (any(missingCol)) {
                 stop(paste("Cannot find column", omxQuotes(use[missingCol]), "in the data"))
             }
-		data <- data[,use]
+		data <- data[,use,drop=F]
 		if(missing(ordinal)){
 			if (is.data.frame(data)) {
 				ordinalCols <- sapply(data, is.ordered)
