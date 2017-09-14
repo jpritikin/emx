@@ -139,7 +139,7 @@ emxThresholds <- function(data, ordinalCols=rep(TRUE, ncol(data))){
 		#	thrval[,i] <- c(0, rep(.2, numThresholds-1))
 		#} else {
 			thrfre[,i] <- c(rep(TRUE, numOrdinalLevels[i]-1), rep(FALSE, numThresholds - (numOrdinalLevels[i]-1)))
-			thrval[,i] <- rep(.2, numThresholds)
+			thrval[,i] <- c(-(numThresholds-1)*.1, rep(.2, numThresholds-1))
 		#}
 	}
 	thresholdDeviations <- OpenMx::mxMatrix("Full", 
